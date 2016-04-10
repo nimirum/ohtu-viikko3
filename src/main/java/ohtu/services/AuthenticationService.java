@@ -44,7 +44,7 @@ public class AuthenticationService {
     }
 
     private boolean invalid(String username, String password) {
-        if (password.length() < 8 || username.length() < 3) {
+        if (password.length() < 8 || username.length() < 10) {
             return true;
         }
 
