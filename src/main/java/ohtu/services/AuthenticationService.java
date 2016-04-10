@@ -15,12 +15,20 @@ public class AuthenticationService {
 
     public boolean logIn(String username, String password) {
         for (User user : userDao.listAll()) {
-            if (user.getUsername().equals(username)
-                    && user.getPassword().equals(password)) {
+            if (checkUser(user,username, password)) {
                 return true;
             }
         }
 
+        return false;
+    }
+    
+    private boolean checkUser(User user, String username, String password) {
+        if (user.getUsername().equals(username)) {
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -28,13 +36,10 @@ public class AuthenticationService {
         if (userDao.findByName(username) != null) {
             return false;
         }
-
         if (invalid(username, password)) {
             return false;
         }
-
         userDao.add(new User(username, password));
-
         return true;
     }
 
